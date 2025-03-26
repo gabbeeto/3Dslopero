@@ -2,11 +2,11 @@ import {createRoot} from 'react-dom/client'
 import './index.css'
 import {Canvas, useFrame} from '@react-three/fiber'
 import getContainersOfPairs from './slopeGenerator'
-import InputNode from 'three/src/nodes/core/InputNode.js'
+import { Fraction } from './Fraction'
 
 
 function generateSlope(textGraph: string, amountOfVarialbe: string) {
-	let container: {x: number, y: number, z: number}[] = getContainersOfPairs(textGraph, Number(amountOfVarialbe));
+	let container: {x: Fraction, y: Fraction, z: Fraction, interceptValue: Fraction}[] = getContainersOfPairs(textGraph, Number(amountOfVarialbe));
 	console.log(container)
 }
 
@@ -28,6 +28,7 @@ createRoot(document.getElementById('root')!).render(
 				}}>apply</button>
 			</fieldset>
 			<Canvas>
+
 				<mesh>
 					<boxGeometry args={[1, 1, 1]} />
 					<meshBasicMaterial color={'#1D7169'} />
