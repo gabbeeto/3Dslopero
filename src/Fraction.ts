@@ -4,12 +4,10 @@ export class Fraction {
 	Denominator: number = 1;
 
 	constructor(content: string = "empty") {
-
 		if(content == "empty"){
 		this.Numerator = 0
 		this.Denominator = 0;
 		}
-
 		let itsAFraction: Boolean = content.includes("(")
 		const numberpattern = '(-| -|- )?[0-9]+'
 		if (itsAFraction) {
@@ -56,7 +54,7 @@ function invertNumber(number: number): number {
 }
 
 function simplify(numerator: number, denominator: number, highestNumber: number, changingNumber: number = 2):  number[] {
-		console.log({numerator, denominator, highestNumber, changingNumber})
+
 		if (changingNumber >= highestNumber) {
 			return [numerator, denominator];
 		}
