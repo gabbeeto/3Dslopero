@@ -4,14 +4,19 @@ export class Fraction {
 	Denominator: number = 1;
 
 	constructor(content: string = "empty") {
-		if(content == "empty"){
-		this.Numerator = 0
-		this.Denominator = 0;
+		if (content == "empty") {
+			this.Numerator = 0
+			this.Denominator = 0;
 		}
-		let itsAFraction: Boolean = content.includes("(")
-		const numberpattern = '(-| -|- )?[0-9]+'
+
+		const numberpattern = '(-| -|- )?[0-9]+';
+		const divisionSymbol: string = "(\\\\|\\/|%)"
+
+		let divisionSymbolIsFound: boolean = content.search(new RegExp(`${divisionSymbol}`)) != -1
+		let hasParenthesis: boolean = content.includes("(");
+		let itsAFraction: Boolean = hasParenthesis && divisionSymbolIsFound;
 		if (itsAFraction) {
-			let [numeratorText, _symbol, denominatorText] = content.split(/(\\|\/|%)/u);
+			let [numeratorText, _symbol, denominatorText] = content.split(new RegExp(`${divisionSymbol}`, 'u'));
 			let numberatorTextButShort: string = numeratorText.match(new RegExp(numberpattern))![0];
 			let denominatorTextButShort: string = denominatorText.match(new RegExp(numberpattern))![0];
 
@@ -32,46 +37,61 @@ export class Fraction {
 				this.Numerator = invertNumber(this.Numerator)
 			}
 		}
-		else if(content != "empty"){
+		else if (content != "empty") {
 
-		let numberatorTextWithoutSpaces: string = content.match(new RegExp(numberpattern))![0]
-		numberatorTextWithoutSpaces = numberatorTextWithoutSpaces.split(" ").join("")
-		this.Numerator = Number(numberatorTextWithoutSpaces);
+			if (hasParenthesis) {
+				let allTheNumbers = [...content.matchAll(new RegExp(numberpattern, 'g'))!]
+				let newNumbers = allTheNumbers.map(e => e[0])
+					.map(e => e.split(" ").join(""))
+					.map(e => Number(e))
+				let newValue = 0
+				newNumbers.forEach(e => {newValue += e})
+				this.Numerator = newValue
+			}
+			else {
+				let numberatorTextWithoutSpaces: string = content.match(new RegExp(numberpattern))![0]
+				numberatorTextWithoutSpaces = numberatorTextWithoutSpaces.split(" ").join("")
+				this.Numerator = Number(numberatorTextWithoutSpaces);
+			}
 
 		}
 
-		let NumAndDen =	simplify(this.Numerator, this.Denominator, this.Numerator > this.Denominator ? this.Numerator : this.Denominator) 
+		let NumAndDen = simplify(this.Numerator, this.Denominator, this.Numerator > this.Denominator ? this.Numerator : this.Denominator)
 
 		this.Numerator = NumAndDen[0];
 		this.Denominator = NumAndDen[1];
 	}
 
 
+turnIntoDecimal(){
+	return this.Numerator / this.Denominator
+}
+
 }
 function invertNumber(number: number): number {
-	return number	*-1;
+	return number * -1;
 
 }
 
-function simplify(numerator: number, denominator: number, highestNumber: number, changingNumber: number = 2):  number[] {
+function simplify(numerator: number, denominator: number, highestNumber: number, changingNumber: number = 2): number[] {
 
-		if (changingNumber >= highestNumber) {
-			return [numerator, denominator];
+	if (changingNumber >= highestNumber) {
+		return [numerator, denominator];
+	}
+	else {
+		let numeritorIsDivisibleByChangingNumber: boolean = numerator % changingNumber == 0;
+		let denominatorIsDivisibleByChangingNumber: boolean = denominator % changingNumber == 0;
+		if (numeritorIsDivisibleByChangingNumber && denominatorIsDivisibleByChangingNumber) {
+			numerator /= changingNumber
+			denominator /= changingNumber
+			highestNumber = numerator > denominator ? numerator : denominator;
+			// this resets divisible number so it can check again if the same divisible number is repeated
+			return simplify(numerator, denominator, highestNumber, 2)
 		}
 		else {
-			let numeritorIsDivisibleByChangingNumber: boolean = numerator % changingNumber == 0;
-			let denominatorIsDivisibleByChangingNumber: boolean = denominator % changingNumber == 0;
-			if (numeritorIsDivisibleByChangingNumber && denominatorIsDivisibleByChangingNumber) {
-				numerator /= changingNumber
-				denominator /= changingNumber
-				highestNumber = numerator > denominator ? numerator : denominator;
-				// this resets divisible number so it can check again if the same divisible number is repeated
-				return simplify(numerator, denominator, highestNumber, 2)
-			}
-			else {
-				return simplify(numerator,denominator,highestNumber,changingNumber + 1)
-			}
-
+			return simplify(numerator, denominator, highestNumber, changingNumber + 1)
 		}
 
 	}
+
+}

@@ -5,8 +5,15 @@ import getContainersOfPairs from './slopeGenerator'
 import { Fraction } from './Fraction'
 
 
+interface xyz {
+ [key: string]: number | undefined,
+	x?: number,
+	y?: number,
+	z?: number,
+}
+
 function generateSlope(textGraph: string, amountOfVarialbe: string) {
-	let container: {x: Fraction, y: Fraction, z: Fraction, interceptValue: Fraction}[] = getContainersOfPairs(textGraph, Number(amountOfVarialbe));
+	let container: xyz[] = getContainersOfPairs(textGraph, Number(amountOfVarialbe));
 	console.log(container)
 }
 
