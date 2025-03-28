@@ -47,6 +47,7 @@ function gettable(slopes: xyz, amount: number, mainvariable: string): onlyXYZ[] 
 	let oppositesfrommain: number[] = [];
 
 	for (let k in slopes) {
+
 		oppositesfrommain.push(slopes[k]!.turnIntoDecimal())
 	}
 	let mainvalues: onlyXYZ[] = [];

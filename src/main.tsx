@@ -2,36 +2,34 @@ import {createRoot} from 'react-dom/client'
 import './index.css'
 import {Canvas, useFrame} from '@react-three/fiber'
 import getContainersOfPairs from './slopeGenerator'
-import {Fraction} from './Fraction'
-import {useState} from 'react'
 
-// TODO-display this 
-let jsxContainer = (<Canvas>
-		<mesh >
-			<boxGeometry args={[1, 1, 1]} />
-			<meshBasicMaterial color={'#1D7169'} />
-		</mesh>
-	</Canvas>)
-
-const root = createRoot(document.getElementById('root')!)
-
+let jsxContainer = (<></>)
 
 function generateSlope(textGraph: string, amountOfVarialbe: string) {
 	let container: any[] = getContainersOfPairs(textGraph, Number(amountOfVarialbe));
 
-	let jsxContainer = (<Canvas>{container.map(e => {
-		return (<mesh position={[e['x'], e['z'], e['y']]}>
-			<boxGeometry args={[1, 1, 1]} />
-			<meshBasicMaterial color={'#1D7169'} />
-		</mesh>)
-	})}</Canvas>)
+	jsxContainer = (<>
+									<h2>this is working</h2>
+		<Canvas>
+			{container.map((e,i) => {
+				return (
+					<mesh key={i} position={[e['x'], e['z'], e['y']]}>
+						<boxGeometry args={[1, 1, 1]} />
+						<meshBasicMaterial color={'#1D7169'} />
+					</mesh>)
+			})}
+		</Canvas>
+	</>)
+
 
 	render()
-	console.log(jsxContainer)
+
 }
 
-function render() {
 
+let root = createRoot(document.getElementById('root')!)
+render()
+function render() {
 
 	root.render(
 		(<><header><h1>3D SLOPERO</h1></header>
@@ -40,6 +38,7 @@ function render() {
 					<legend>
 						options for the graph
 					</legend>
+
 					<label htmlFor="equationText" >Write equation to graph</label>
 					<input id='equationText' type="text" placeholder="y = 2x + 6z" />
 					<label htmlFor="variableAmount" >amount of variable</label>
@@ -50,12 +49,9 @@ function render() {
 						generateSlope(equationText.value, variableAmount.value)
 					}}>apply</button>
 				</fieldset>
-				<Canvas>
-
-					{jsxContainer}
-				</Canvas>
+				{jsxContainer}
 			</main >
 		</>)
 	)
 }
-render()
+

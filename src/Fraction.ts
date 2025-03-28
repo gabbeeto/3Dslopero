@@ -64,7 +64,13 @@ export class Fraction {
 
 
 turnIntoDecimal(){
+	if (this.Numerator == 0){
+		return this.Numerator
+	}
+	else{
 	return this.Numerator / this.Denominator
+	}
+
 }
 
 }
