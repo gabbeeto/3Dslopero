@@ -2,6 +2,7 @@ import {createRoot} from 'react-dom/client'
 import './index.css'
 import {Canvas, useFrame} from '@react-three/fiber'
 import getContainersOfPairs from './slopeGenerator'
+import { OrbitControls } from '@react-three/drei'
 
 let jsxContainer = (<></>)
 
@@ -9,8 +10,9 @@ function generateSlope(textGraph: string, amountOfVarialbe: string) {
 	let container: any[] = getContainersOfPairs(textGraph, Number(amountOfVarialbe));
 
 	jsxContainer = (<>
-									<h2>this is working</h2>
+									<h2>enjoy the graph :)</h2>
 		<Canvas>
+		<OrbitControls/>
 			{container.map((e,i) => {
 				return (
 					<mesh key={i} position={[e['x'], e['z'], e['y']]}>
