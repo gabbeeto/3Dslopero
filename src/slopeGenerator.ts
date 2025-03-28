@@ -47,9 +47,9 @@ function gettable(slopes: xyz, amount: number, mainvariable: string): onlyXYZ[] 
 	let oppositesfrommain: number[] = [];
 
 	for (let k in slopes) {
-
 		oppositesfrommain.push(slopes[k]!.turnIntoDecimal())
 	}
+
 	let mainvalues: onlyXYZ[] = [];
 	for (let i: number = 0; i < amount; i++) {
 		let othervariables: string[] = []
@@ -72,39 +72,70 @@ function gettable(slopes: xyz, amount: number, mainvariable: string): onlyXYZ[] 
 
 
 			let pair: onlyXYZ = {}
+
 			pair[mainvariable] = firstoppositevariable + secondoppositevariable + thirdoppositevariable;
-			pair[othervariables[0]] = i;
-			pair[othervariables[1]] = i2;
+			console.log(secondoppositevariable)
+			console.log(othervariables[1])
+			// prevents objects from spawning 
+			pair[othervariables[0]] = returnVar(firstoppositevariable, i)
+			pair[othervariables[1]] = returnVar(secondoppositevariable, i2)
+			if (i > 0) {
+				let negative2nd: onlyXYZ = {}
+				negative2nd[mainvariable] = (firstoppositevariable * -1) + (secondoppositevariable) + thirdoppositevariable;
 
-			if(i > 0){
+				negative2nd[othervariables[0]] = returnVar(firstoppositevariable, i, true)
+				negative2nd[othervariables[1]] = returnVar(secondoppositevariable, i2)
 
-			let negative2nd: onlyXYZ = {}
-			negative2nd[mainvariable] = (firstoppositevariable *-1) + (secondoppositevariable) + thirdoppositevariable;
-			negative2nd[othervariables[0]] = i *-1;
-			negative2nd[othervariables[1]] = i2;
-			mainvalues.push(negative2nd)
+
+				let negative2ndIsnotInArray: boolean = pairIsNotInArray(mainvalues, negative2nd, [mainvariable,othervariables[0],othervariables[1]]);
+				if (negative2ndIsnotInArray) {
+					mainvalues.push(negative2nd)
+				}
+
 			}
 
-			if(i2 > 0){
-			let negative3rd: onlyXYZ = {}
-			negative3rd[mainvariable] = (firstoppositevariable ) + (secondoppositevariable *-1) + thirdoppositevariable;
-			negative3rd[othervariables[0]] = i ;
-			negative3rd[othervariables[1]] = i2 *-1;
-			mainvalues.push(negative3rd)
+			if (i2 > 0) {
+				let negative3rd: onlyXYZ = {}
+				negative3rd[mainvariable] = (firstoppositevariable) + (secondoppositevariable * -1) + thirdoppositevariable;
+				negative3rd[othervariables[0]] = returnVar(firstoppositevariable, i)
+				negative3rd[othervariables[1]] = returnVar(secondoppositevariable, i2, true)
+
+
+				let negative3rdIsnotInArray: boolean = pairIsNotInArray(mainvalues, negative3rd, [mainvariable,othervariables[0],othervariables[1]]);
+				if (negative3rdIsnotInArray) {
+					mainvalues.push(negative3rd)
+				}
+
 			}
 
-
-			mainvalues.push(pair)
-
+			let pairIsnotInArray: boolean = pairIsNotInArray(mainvalues, pair, [mainvariable,othervariables[0],othervariables[1]]);
+			if (pairIsnotInArray) {
+				mainvalues.push(pair)
+			}
 		}
-
-
 
 	}
 
 	return mainvalues
 }
 
+function pairIsNotInArray(mainArray: any[], secondaryArray: onlyXYZ, valuesToCompare: any[] ): boolean{
+return !mainArray.some(item =>
+		item[valuesToCompare[0]] === secondaryArray[valuesToCompare[0]] &&
+		item[valuesToCompare[1]] === secondaryArray[valuesToCompare[1]] &&
+		item[valuesToCompare[2]] === secondaryArray[valuesToCompare[2]]);
+
+}
+
+function returnVar(item: number, index: number, negative: boolean = false): number {
+	let one = negative ? -1 : 1
+	if (item == 0) {
+		return 0;
+	}
+	else {
+		return index * one;
+	}
+}
 
 function getMainVariable(textGraph: string): string {
 	return textGraph.split("=")![0].match(/(x|y|z)/)![0]

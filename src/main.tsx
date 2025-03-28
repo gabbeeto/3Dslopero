@@ -9,6 +9,7 @@ let jsxContainer = (<></>)
 function generateSlope(textGraph: string, amountOfVarialbe: string) {
 	let container: any[] = getContainersOfPairs(textGraph, Number(amountOfVarialbe));
 
+	console.log(container)
 	jsxContainer = (<>
 									<h2>enjoy the graph :)</h2>
 		<Canvas>
@@ -16,7 +17,7 @@ function generateSlope(textGraph: string, amountOfVarialbe: string) {
 			{container.map((e,i) => {
 				return (
 					<mesh key={i} position={[e['x'], e['z'], e['y']]}>
-						<boxGeometry args={[1, 1, 1]} />
+						<boxGeometry args={[0.5, 0.5, 0.5]} />
 						<meshBasicMaterial color={'#1D7169'} />
 					</mesh>)
 			})}
