@@ -8,6 +8,8 @@ import * as THREE from 'three';
 import {TextGeometry} from 'three/addons/geometries/TextGeometry.js';
 extend({TextGeometry})
 import {FontLoader} from 'three/examples/jsm/Addons.js'
+import MaxAndMinValuesForShowingLines from './minAndMax'
+import basicLine from './basicLine'
 
 let jsxContainer = (<></>)
 
@@ -15,7 +17,9 @@ let jsxContainer = (<></>)
 
 function generateSlope(textGraph: string, amountOfVarialbe: string) {
 	let container: any[] = getContainersOfPairs(textGraph, Number(amountOfVarialbe));
+	let [smallesValues, biggestValues] =  MaxAndMinValuesForShowingLines(container);
 
+  let basicLines	= basicLine(smallesValues, biggestValues)
 	let materialForLine = new THREE.LineBasicMaterial({color: 0x0000ff})
 	let pointsForLine = container.map(e => {return new THREE.Vector3(e['x'], e['z'], e['y'])});
 	let geometryForLine = new THREE.BufferGeometry().setFromPoints(pointsForLine);

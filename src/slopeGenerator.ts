@@ -74,8 +74,6 @@ function gettable(slopes: xyz, amount: number, mainvariable: string): onlyXYZ[] 
 			let pair: onlyXYZ = {}
 
 			pair[mainvariable] = firstoppositevariable + secondoppositevariable + thirdoppositevariable;
-			console.log(secondoppositevariable)
-			console.log(othervariables[1])
 			// prevents objects from spawning 
 			pair[othervariables[0]] = returnVar(firstoppositevariable, i)
 			pair[othervariables[1]] = returnVar(secondoppositevariable, i2)
