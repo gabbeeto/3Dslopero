@@ -1,4 +1,5 @@
 interface xyz {
+	[key: string]: number | undefined,
 	x: number,
 	y: number,
 	z: number,

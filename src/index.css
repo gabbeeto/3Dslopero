@@ -64,3 +64,13 @@ text-align: center;
 main{
 padding: 10px;
 }
+
+
+output{
+position: absolute;
+top: 5px;
+left: 5px;
+color: #47FF47;
+font-weight: bolder;
+font-size: 1.3rem;
+}

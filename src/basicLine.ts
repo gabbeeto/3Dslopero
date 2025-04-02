@@ -1,10 +1,11 @@
 interface xyz {
+	[key: string]: number | undefined,
 	x: number,
 	y: number,
 	z: number,
 }
 
-export default function basicLine(smallesValues:xyz, biggestValues: xyz): xyz[]{
+export default function basicLine(smallesValues:xyz, biggestValues: xyz): {x: xyz[], y: xyz[], z:xyz[]}{
 
 
 	let xDistance = (biggestValues['x'] - smallesValues['x']) ; 
@@ -20,16 +21,18 @@ export default function basicLine(smallesValues:xyz, biggestValues: xyz): xyz[]{
 
 	let yLines=[]
 	for(let index = 0; (index -1) < yDistance; index++){
-		yLines.push({z:0,y:0,x:index + smallesValues['y']});
+		yLines.push({z:0,x:0,y:index + smallesValues['y']});
 	}
 
 
 	let zLines=[]
 	for(let index = 0; (index -1) < zDistance; index++){
-		zLines.push({z:0,y:0,x:index + smallesValues['z']});
+		zLines.push({x:0,y:0,z:index + smallesValues['z']});
 	}
 
-return [{x:0,y:0,z:0}, {x:0,y:0,z:0}]
+let allThePoints = {x:xLines,y:yLines,z:zLines}
+
+return allThePoints;
 }
 
 
