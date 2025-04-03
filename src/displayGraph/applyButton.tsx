@@ -12,37 +12,42 @@ import makeOverWorldLines from './makeOverWorldLines';
 
 export default function generateSlope(textGraph: string, amountOfVarialbe: string) {
 
+	window.jsxContainer = (<>
+		<h2>enjoy the graph :)</h2>
+		<DisplayOn3D textGraph={textGraph} amountOfVarialbe={amountOfVarialbe} />
+	</>)
+	render()
+}
+
+function DisplayOn3D({textGraph, amountOfVarialbe}: {textGraph: string, amountOfVarialbe: string}) {
+
 	let container: xyzNumbers[] = getContainersOfPairs(textGraph, Number(amountOfVarialbe));
+	generateValues(container)
 
 	let [xOverworldLines, yOverworldLines, zOverworldLines] = makeOverWorldLines(container)
 
 	let lineForXYZPoints = makeLinesForXYZPoints(container)
 	let textForXYZPoints = makeTextForPoints(container)
-	window.jsxContainer = (<>
-		<h2>enjoy the graph :)</h2>
-		<Canvas>
-			<OrbitControls />
-			<primitive object={xOverworldLines} position={[0, 0, 0]} />
-			<primitive object={yOverworldLines} position={[0, 0, 0]} />
-			<primitive object={zOverworldLines} position={[0, 0, 0]} />
 
-			<primitive object={textForXYZPoints} position={[0, 0, 0]} />
-			<primitive object={lineForXYZPoints} position={[0, 0, 0]} />
-			<MakeXYZPoints container={container} mainAxis={textGraph.split("=")[0].match(/(x|y|z)/)![0]} />
-		</Canvas>
-	</>)
 
-	render()
+	return (<Canvas >
+		<OrbitControls />
+		<primitive object={xOverworldLines} position={[0, 0, 0]} />
+		<primitive object={yOverworldLines} position={[0, 0, 0]} />
+		<primitive object={zOverworldLines} position={[0, 0, 0]} />
+
+		<primitive object={textForXYZPoints} position={[0, 0, 0]} />
+		<primitive object={lineForXYZPoints} position={[0, 0, 0]} />
+		<MakeXYZPoints container={container} mainAxis={textGraph.split("=")[0].match(/(x|y|z)/)![0]} />
+	</Canvas>)
 
 }
-
 
 function makeLinesForXYZPoints(container: xyzNumbers[]): THREE.Line {
 	let materialForLine = new THREE.LineBasicMaterial({color: 0x0000ff})
 	let pointsForLine = container.map(e => {return new THREE.Vector3(e['x'], e['z'], e['y'])});
 	let geometryForLine = new THREE.BufferGeometry().setFromPoints(pointsForLine);
 	let line = new THREE.Line(geometryForLine, materialForLine);
-
 	return line
 }
 
@@ -117,4 +122,15 @@ function MakeXYZPoints({container, mainAxis}: {container: xyzNumbers[], mainAxis
 function changeOutputText(outputText: string) {
 	let outputElement = document.querySelector('output')!
 	outputElement.innerHTML = outputText;
+}
+
+
+function generateValues(container: xyzNumbers[]) {
+
+	window.xyzContainer = container.map(e => {
+		return (<li>
+			<p>(x:{e['x']},y:{e['y']},z:{e['z']})</p>
+		</li>)
+
+	})
 }

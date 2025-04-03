@@ -3,6 +3,7 @@ import './index.css'
 import generateSlope from './displayGraph/applyButton'
 
 window.jsxContainer = (<></>)
+window.xyzContainer = [<>equation not generated</>]
 
 
 
@@ -21,7 +22,7 @@ export default function render() {
 
 					<label htmlFor="equationText" >Write equation to graph</label>
 					<input id='equationText' type="text" placeholder="y = 2x + 6z" />
-					<label htmlFor="variableAmount" >amount of variable</label>
+					<label htmlFor="variableAmount" >amount of iteration</label>
 					<input type="number" name="variableAmount" id="variableAmount" placeholder='10' />
 					<button onClick={() => {
 						let equationText: HTMLInputElement = document.querySelector('#equationText')!
@@ -29,6 +30,12 @@ export default function render() {
 						generateSlope(equationText.value, variableAmount.value)
 					}}>apply</button>
 					<output ></output>
+				</fieldset>
+				<fieldset id='valueContainer'>
+					<h2>values</h2>
+					<ul>
+					{window.xyzContainer}
+					</ul>
 				</fieldset>
 				{window.jsxContainer}
 			</main >

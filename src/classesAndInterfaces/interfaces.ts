@@ -23,5 +23,8 @@ declare global {
 		z?: xyzNumbers[],
 	}
 
-	interface Window {jsxContainer: any}
+	interface Window {
+		jsxContainer: any,
+		xyzContainer: any[],
+	}
 }
