@@ -1,4 +1,3 @@
-
 export class Fraction {
 	Numerator: number = 1;
 	Denominator: number = 1;

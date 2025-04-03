@@ -1,25 +1,11 @@
-import {Fraction} from "./Fraction";
-
-interface xyz {
-	[key: string]: Fraction | undefined,
-	x?: Fraction,
-	y?: Fraction,
-	z?: Fraction,
-	interceptValue: Fraction
-}
+import {Fraction} from "./../classesAndInterfaces/Fraction";
 
 
-interface onlyXYZ {
-	[key: string]: number | undefined,
-	x?: number,
-	y?: number,
-	z?: number,
-}
 
-export default function getcontainersofpairs(textgraph: string, amountofvarialbe: number): onlyXYZ[] {
+export default function getcontainersofpairs(textgraph: string, amountofvarialbe: number): xyzNumbers[] {
 	let interceptformterms = getMainValue(textgraph)
 	let mainvariable = getMainVariable(textgraph)
-	let newInterceptForms: xyz = {interceptValue: new Fraction()}
+	let newInterceptForms: xyzFractions = {interceptValue: new Fraction()}
 	switch (mainvariable) {
 
 		case 'y':
@@ -36,12 +22,12 @@ export default function getcontainersofpairs(textgraph: string, amountofvarialbe
 
 
 
-	let tableofpairs: onlyXYZ[] = gettable(newInterceptForms, amountofvarialbe, mainvariable)
+	let tableofpairs: xyzNumbers[] = gettable(newInterceptForms, amountofvarialbe, mainvariable)
 
 	return tableofpairs
 }
 
-function gettable(slopes: xyz, amount: number, mainvariable: string): onlyXYZ[] {
+function gettable(slopes: xyzFractions, amount: number, mainvariable: string): xyzNumbers[] {
 
 
 	let oppositesfrommain: number[] = [];
@@ -50,7 +36,7 @@ function gettable(slopes: xyz, amount: number, mainvariable: string): onlyXYZ[] 
 		oppositesfrommain.push(slopes[k]!.turnIntoDecimal())
 	}
 
-	let mainvalues: onlyXYZ[] = [];
+	let mainvalues: xyzNumbers[] = [];
 	for (let i: number = 0; i < amount; i++) {
 		let othervariables: string[] = []
 		switch (mainvariable) {
@@ -71,14 +57,14 @@ function gettable(slopes: xyz, amount: number, mainvariable: string): onlyXYZ[] 
 			let thirdoppositevariable = oppositesfrommain[2];
 
 
-			let pair: onlyXYZ = {}
+			let pair: xyzNumbers = {}
 
 			pair[mainvariable] = firstoppositevariable + secondoppositevariable + thirdoppositevariable;
 			// prevents objects from spawning 
 			pair[othervariables[0]] = returnVar(firstoppositevariable, i)
 			pair[othervariables[1]] = returnVar(secondoppositevariable, i2)
 			if (i > 0) {
-				let negative2nd: onlyXYZ = {}
+				let negative2nd: xyzNumbers = {}
 				negative2nd[mainvariable] = (firstoppositevariable * -1) + (secondoppositevariable) + thirdoppositevariable;
 
 				negative2nd[othervariables[0]] = returnVar(firstoppositevariable, i, true)
@@ -93,7 +79,7 @@ function gettable(slopes: xyz, amount: number, mainvariable: string): onlyXYZ[] 
 			}
 
 			if (i2 > 0) {
-				let negative3rd: onlyXYZ = {}
+				let negative3rd: xyzNumbers = {}
 				negative3rd[mainvariable] = (firstoppositevariable) + (secondoppositevariable * -1) + thirdoppositevariable;
 				negative3rd[othervariables[0]] = returnVar(firstoppositevariable, i)
 				negative3rd[othervariables[1]] = returnVar(secondoppositevariable, i2, true)
@@ -117,7 +103,7 @@ function gettable(slopes: xyz, amount: number, mainvariable: string): onlyXYZ[] 
 	return mainvalues
 }
 
-function pairIsNotInArray(mainArray: any[], secondaryArray: onlyXYZ, valuesToCompare: any[] ): boolean{
+function pairIsNotInArray(mainArray: any[], secondaryArray: xyzNumbers, valuesToCompare: any[] ): boolean{
 return !mainArray.some(item =>
 		item[valuesToCompare[0]] === secondaryArray[valuesToCompare[0]] &&
 		item[valuesToCompare[1]] === secondaryArray[valuesToCompare[1]] &&
