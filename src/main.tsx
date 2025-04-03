@@ -10,7 +10,7 @@ let root = createRoot(document.getElementById('root')!)
 render()
 
 export default function render() {
-
+	root = createRoot(document.getElementById('root')!)
 	root.render(
 		(<><header><h1>3D SLOPERO</h1></header>
 			<main>
