@@ -40,5 +40,14 @@ export default function getMinAndMaxForTable(
   smallestPair["x"] = Number(smallestPair["x"]) - 1;
   smallestPair["z"] = Number(smallestPair["z"]) - 1;
 
+  // makes sure that the minimum or maximum value required is 0 so it reaches to the origin of the overworld lines
+  biggestPair["y"] = biggestPair["y"] > 0 ? biggestPair["y"] : 0;
+  biggestPair["z"] = biggestPair["z"] > 0 ? biggestPair["z"] : 0;
+  biggestPair["x"] = biggestPair["x"] > 0 ? biggestPair["x"] : 0;
+
+  smallestPair["y"] = smallestPair["y"] < 0 ? smallestPair["y"] : 0;
+  smallestPair["x"] = smallestPair["x"] < 0 ? smallestPair["x"] : 0;
+  smallestPair["z"] = smallestPair["z"] < 0 ? smallestPair["z"] : 0;
+
   return [smallestPair, biggestPair];
 }

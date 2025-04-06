@@ -5,6 +5,18 @@ export default function getPointsForOverWorldLines(
   const xDistance = Number(biggestValues["x"]) - Number(smallesValues["x"]);
   const yDistance = Number(biggestValues["y"]) - Number(smallesValues["y"]);
   const zDistance = Number(biggestValues["z"]) - Number(smallesValues["z"]);
+  // console.log({
+  //   smallesValuesX: smallesValues["x"],
+  //   smallesValuesY: smallesValues["y"],
+  //   smallesValuesZ: smallesValues["z"],
+  //   biggestValuesX: biggestValues["x"],
+  //   biggestValuesY: biggestValues["y"],
+  //   biggestValuesZ: biggestValues["z"],
+  //
+  //   xDistance: xDistance + Number(smallesValues["x"]),
+  //   yDistance: yDistance + Number(smallesValues["y"]),
+  //   zDistance: zDistance + Number(smallesValues["z"]),
+  // });
 
   const xLines: xyzNumbers[] = [];
   for (let index = 0; index - 1 < xDistance; index++) {
