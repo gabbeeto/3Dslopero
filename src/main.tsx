@@ -3,13 +3,14 @@ import "./index.css";
 import generateSlope from "./displayGraph/applyButton";
 
 window.jsxContainer = <></>;
-window.xyzContainer = [<>equation not generated</>];
+window.xyzContainer = ["equation not generated"].map((text, i) => (
+  <li key={i}> {text}</li>
+));
 
-let root = createRoot(document.getElementById("root")!);
+const root = createRoot(document.getElementById("root")!);
 render();
 
 export default function render() {
-  root = createRoot(document.getElementById("root")!);
   root.render(
     <>
       <header>
