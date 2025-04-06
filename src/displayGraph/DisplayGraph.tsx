@@ -29,7 +29,9 @@ export default function DisplayOn3D({
 
   return (
     <Canvas>
-      <OrbitControls />
+      <OrbitControls>
+        <perspectiveCamera position={[0, 1, 1]}></perspectiveCamera>
+      </OrbitControls>
       <primitive object={xOverworldLines} position={[0, 0, 0]} />
       <primitive object={yOverworldLines} position={[0, 0, 0]} />
       <primitive object={zOverworldLines} position={[0, 0, 0]} />

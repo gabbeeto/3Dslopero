@@ -12,24 +12,37 @@ export default function getMinAndMaxForTable(
     z: tableOfContent[0]["z"],
   };
 
-  biggestPair["y"] = tableOfContent.reduce((a, c) => {
-    return Number(a) > Number(c["y"]) ? a : c["y"];
+  biggestPair["y"] = tableOfContent.reduce((previousNumber, currentNumber) => {
+    return Number(previousNumber) > Number(currentNumber["y"])
+      ? previousNumber
+      : currentNumber["y"];
   }, tableOfContent[0]["y"]);
-  biggestPair["x"] = tableOfContent.reduce((a, c) => {
-    return Number(a) > Number(c["x"]) ? a : c["x"];
+  biggestPair["x"] = tableOfContent.reduce((previousNumber, currentNumber) => {
+    return Number(previousNumber) > Number(currentNumber["x"])
+      ? previousNumber
+      : currentNumber["x"];
   }, tableOfContent[0]["x"]);
-  biggestPair["z"] = tableOfContent.reduce((a, c) => {
-    return Number(a) > Number(c["z"]) ? a : c["z"];
+  biggestPair["z"] = tableOfContent.reduce((previousNumber, currentNumber) => {
+    return Number(previousNumber) > Number(currentNumber["z"])
+      ? previousNumber
+      : currentNumber["z"];
   }, tableOfContent[0]["z"]);
 
-  smallestPair["y"] = tableOfContent.reduce((a, c) => {
-    return Number(a) < Number(c["y"]) ? a : c["y"];
+  smallestPair["y"] = tableOfContent.reduce((previousNumber, currentNumber) => {
+    return Number(previousNumber) < Number(currentNumber["y"])
+      ? previousNumber
+      : currentNumber["y"];
   }, tableOfContent[0]["y"]);
-  smallestPair["x"] = tableOfContent.reduce((a, c) => {
-    return Number(a) < Number(c["x"]) ? a : c["x"];
+
+  smallestPair["x"] = tableOfContent.reduce((previousNumber, currentNumber) => {
+    return Number(previousNumber) < Number(currentNumber["x"])
+      ? previousNumber
+      : currentNumber["x"];
   }, tableOfContent[0]["x"]);
-  smallestPair["z"] = tableOfContent.reduce((a, c) => {
-    return Number(a) < Number(c["z"]) ? a : c["z"];
+  smallestPair["z"] = tableOfContent.reduce((previousNumber, currentNumber) => {
+    return Number(previousNumber) < Number(currentNumber["z"])
+      ? previousNumber
+      : currentNumber["z"];
   }, tableOfContent[0]["z"]);
 
   biggestPair["y"] = Number(biggestPair["y"]) + 1;
